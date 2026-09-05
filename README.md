@@ -32,11 +32,9 @@ ntpq -c as
 
 ### 2. Create the restore script
 
-Create `/config/startup_ntp-key-restore.sh` with the content of startup_ntp-key-restore.sh.
+Create `/config/startup_ntp-key-restore.sh` with the content of [startup_ntp-key-restore.sh](startup_ntp-key-restore.sh).
 
 Set `NTP_KEYS` to the exact key line from `/etc/ntp/keys`. Multiple keys are comma separated with no spaces after the commas. This is the only line in the script that should ever need editing.
-
-```
 
 Set the permissions so the file is executable by root only.
 
