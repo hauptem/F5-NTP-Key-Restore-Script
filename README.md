@@ -141,7 +141,7 @@ The `auth` column in `ntpq -c as` is the definitive check. Unauthenticated sync 
 
 | Script | What it does |
 |---|---|
-| `#!/bin/bash` | Declares the file as a bash script. It does nothing on its own. |
+| `#!/bin/bash` | Declares the file as a bash script. |
 | `NTP_KEYS="1 M examplekey"` | The only line that should ever need editing. It holds the key line, or several separated by commas, exactly as it must appear in `/etc/ntp/keys`: the key ID, the letter `M` for MD5, and the passphrase, separated by single spaces. A site with two keys writes `"1 M firstkey,2 M secondkey"` with no spaces after the commas. |
 | `source /usr/lib/bigstart/bigip-ready-functions 2>/dev/null` | Loads a set of helper functions that F5 ships with the Big-IP. `2>/dev/null` discards any error so the script continues even if the helper file is absent on some build. |
 | `wait_bigip_ready 2>/dev/null` | One of those helper functions. It pauses, checking once a second, until the Big-IP reports that its configuration is loaded, its modules are provisioned and its license is valid, then returns. This is where the script absorbs most of the difference between fast-booting and slow-booting units. It has no time limit of its own. |
