@@ -91,8 +91,7 @@ The `auth` column in `ntpq -c as` is the definitive check. Unauthenticated sync 
 
 ## Notes
 
-- The script runs once at boot and exits. It does not run on a timer and does not touch anything else on the system. On an ordinary reboot it finds the key present, logs the exit line, and does nothing.
-- `wait_bigip_ready` returns when the configuration is loaded and has no time limit of its own; a unit whose configuration never loads leaves the script waiting. The loop that follows is capped at five minutes: it waits for mcpd to report `running` and for an `ntpd` process to exist, then proceeds regardless.
-- The script only adds key lines. If a passphrase is rotated, edit `NTP_KEYS` and remove the old line from `/etc/ntp/keys` on each unit.
+- The script runs once at boot and exits. It does not run on a timer and does not touch anything else on the system. On an ordinary reboot it finds the key(s) present, logs the exit line, and does nothing.
+- The script only adds key lines, it doesnt delete them. If a passphrase is rotated, edit `NTP_KEYS` and remove the old line from `/etc/ntp/keys` on each unit.
 - The script does not validate `NTP_KEYS`. A mistyped entry is written to the keys file as-is and shows as `auth bad` in `ntpq -c as`.
 
