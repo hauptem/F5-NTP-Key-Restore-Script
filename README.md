@@ -75,10 +75,6 @@ more /etc/ntp/keys
 ntpq -c as
 ```
 
-- Two `ntp_key_restore` lines appear: the restore and the exit. Both carry the unit's real hostname, not `localhost`.
-- The key line is back in `/etc/ntp/keys`.
-- Within a few polls the time server shows `auth ok` and becomes `sys.peer`. Immediately after the restart it may briefly show `reject` or `candidate` while ntpd collects samples; that resolves on its own.
-
 ### 5. Repeat on the peer unit
 
 The script and the launch line are files, not configuration objects, so they do not config-sync. Perform steps 2 through 4 on each unit of the device group.
@@ -87,7 +83,7 @@ The script and the launch line are files, not configuration objects, so they do 
 
 After the first boot on the new volume, run the same checks as in step 4. One `exiting` log entry in `/var/log/ltm` means the script ran and found the key present; a restore log entry followed by the `exiting` entry means the script repaired the keys file. No log entries at all means the script did not run: check that the file is executable and that the launch line is present in `/config/startup`.
 
-The `auth` column in `ntpq -c as` is the definitive check. Unauthenticated sync looks healthy in `ntpq -p`; only `ntpq -c as` shows whether the key exchange is working. `none` on the time server's line means the server entry lacks `key N`; `bad` means the passphrase or key ID does not match the server, or `NTP_KEYS` was entered incorrectly.
+The `auth` column in `ntpq -c as` is the definitive check and shows whether the key exchange is working. `none` on the time server's line means the server entry lacks `key N`; `bad` means the passphrase or key ID does not match the server, or `NTP_KEYS` was entered incorrectly.
 
 ## Notes
 
