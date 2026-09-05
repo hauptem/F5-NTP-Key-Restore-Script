@@ -1,4 +1,4 @@
-# NTP Authentication Key Restoration after TMOS Upgrade
+# F5-NTP-Key-Restore-Script
 
 This process installs a startup script on the Big-IP that restores the NTP symmetric authentication key after a TMOS upgrade. The `/etc/ntp/keys` file is not included in the UCS archive; a TMOS upgrade installs a clean `/etc` on the new boot volume and loads only the UCS into it, so the key line is lost on every upgrade and the unit reverts to unauthenticated time sync. F5 documents this as expected behavior. The script runs from F5's supported customer startup hook, lives under `/config` so it is carried in the UCS, checks the keys file once per boot, and only when the key is missing writes it back and restarts ntpd.
 
