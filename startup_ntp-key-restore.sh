@@ -3,6 +3,7 @@
 # Version: 1.0
 # Author: Eric Haupt
 # Released under the MIT License.
+# https://github.com/hauptem/F5-NTP-Key-Restore-Script
 #
 # Multiple keys are comma separated with no spaces after commas.
 # Format: "<id> M <passphrase>"
