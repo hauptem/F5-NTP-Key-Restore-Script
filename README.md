@@ -116,17 +116,9 @@ ntpq -c as
 
 The script and the launch line are files, not configuration objects, so they do not config-sync. Perform steps 2 through 4 on each unit of the device group.
 
-### 6. Save the configuration
-
-Both files are under `/config` and are captured by the next UCS save. Save a UCS so the current archive includes them before the next upgrade.
-
-```
-tmsh save sys ucs pre-upgrade-with-ntp-restore
-```
-
 ## Verification after an upgrade
 
-After the first boot on the new volume, run the same checks as in step 4. One `exiting` line in `/var/log/ltm` means the script ran and found the key present; a restore line followed by the `exiting` line means it repaired the file. No line at all means the script did not run: check that the file is executable and that the launch line is present in `/config/startup`.
+After the first boot on the new volume, run the same checks as in step 4. One `exiting` log entry in `/var/log/ltm` means the script ran and found the key present; a restore log entry followed by the `exiting` entry means the script repaired the keys file. No log entries at all means the script did not run: check that the file is executable and that the launch line is present in `/config/startup`.
 
 The `auth` column in `ntpq -c as` is the definitive check. Unauthenticated sync looks healthy in `ntpq -p`; only `ntpq -c as` shows whether the key exchange is working. `none` on the time server's line means the server entry lacks `key N`; `bad` means the passphrase or key ID does not match the server, or `NTP_KEYS` was entered incorrectly.
 
