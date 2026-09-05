@@ -32,43 +32,9 @@ ntpq -c as
 
 ### 2. Create the restore script
 
-Create `/config/startup_ntp-key-restore.sh` with the content below.
+Create `/config/startup_ntp-key-restore.sh` with the content of startup_ntp-key-restore.sh.
 
 Set `NTP_KEYS` to the exact key line from `/etc/ntp/keys`. Multiple keys are comma separated with no spaces after the commas. This is the only line in the script that should ever need editing.
-
-```bash
-#!/bin/bash
-# NTP Key Restore: Restores NTP symmetric keys after TMOS upgrades; see K000139030
-# Version: 1.0
-# Author: Eric Haupt
-# Released under the MIT License.
-# https://github.com/hauptem/F5-NTP-Key-Restore-Script
-#
-# Multiple keys are comma separated with no spaces after commas.
-# Format: "<id> M <passphrase>"
-# "1 M examplekey1,2 M examplekey2"
-NTP_KEYS="1 M examplekey1"
-
-source /usr/lib/bigstart/bigip-ready-functions 2>/dev/null
-wait_bigip_ready 2>/dev/null
-for i in $(seq 1 30); do
-    [ "$(tmsh show sys mcp-state field-fmt 2>/dev/null | awk '/phase/{print $2}')" = running ] \
-        && pgrep -x ntpd >/dev/null && break
-    sleep 10
-done
-restored=""
-IFS=',' read -ra keys <<< "$NTP_KEYS"
-for key in "${keys[@]}"; do
-    if ! grep -qxF "$key" /etc/ntp/keys 2>/dev/null; then
-        ( umask 077; echo "$key" >> /etc/ntp/keys )
-        restored="$restored ${key%% *}"
-    fi
-done
-if [ -n "$restored" ]; then
-    bigstart restart ntpd
-    logger -p local0.notice -t ntp_key_restore "NTP key(s)$restored found missing and were reinstalled; ntpd has been restarted."
-fi
-logger -p local0.notice -t ntp_key_restore "NTP key restore exiting."
 
 ```
 
