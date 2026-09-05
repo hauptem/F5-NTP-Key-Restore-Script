@@ -28,7 +28,7 @@ ntpq -c as
 ```
 
 - The keys file shows the key line below F5's three comment lines.
-- In the `ntpq -c as` output, the real time server shows `ok` in the `auth` column. The Big-IP's own local clock (127.127.1.0) always shows `none`; that is expected.
+- In the `ntpq -c as` output, the real time server shows `ok` in the `auth` column.
 
 ### 2. Create the restore script
 
