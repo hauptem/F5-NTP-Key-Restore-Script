@@ -34,7 +34,12 @@ ntpq -c as
 
 Create `/config/startup_ntp-key-restore.sh` with the content of [startup_ntp-key-restore.sh](startup_ntp-key-restore.sh).
 
-Set `NTP_KEYS` to the exact key line from `/etc/ntp/keys`. Multiple keys are comma separated with no spaces after the commas. This is the only line in the script that should ever need editing.
+Set `NTP_KEYS` to the exact key line from `/etc/ntp/keys`, one key per line inside the single quotes. A single quote in a passphrase is written as `'\''`. This is the only value in the script that should ever need editing.
+
+```bash
+NTP_KEYS='1 M examplekey1
+2 M examplekey2'
+```
 
 Set the permissions so the file is executable by root only.
 
@@ -88,7 +93,7 @@ The `auth` column in `ntpq -c as` is the definitive check and shows whether the 
 ## Notes
 
 - The script runs once at boot and exits. It does not run on a timer and does not touch anything else on the system. On an ordinary reboot it finds the key(s) present, logs the exit line, and does nothing.
-- The script only adds key lines, it doesnt delete them. If a passphrase is rotated, edit `NTP_KEYS` and remove the old line from `/etc/ntp/keys` on each unit.
+- The script only adds key lines; it does not delete them. If a passphrase is rotated, edit `NTP_KEYS` and remove the old line from `/etc/ntp/keys` on each unit.
 - The script does not validate `NTP_KEYS`. A mistyped entry is written to the keys file as-is and shows as `auth bad` in `ntpq -c as`.
 
 ## License
