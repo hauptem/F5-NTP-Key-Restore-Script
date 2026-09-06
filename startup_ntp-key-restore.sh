@@ -10,6 +10,7 @@
 # A single quote in a passphrase is written as '\''
 NTP_KEYS='1 M examplekey1
 2 M examplekey2'
+
 source /usr/lib/bigstart/bigip-ready-functions 2>/dev/null
 wait_bigip_ready 2>/dev/null
 for i in $(seq 1 30); do
