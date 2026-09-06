@@ -6,7 +6,6 @@ This process installs a startup script on the Big-IP that restores the NTP symme
 
 - [K000139030: Changes made to the /etc/ntp/keys file are lost after an upgrade](https://my.f5.com/manage/s/article/K000139030)
 - [K11948: Configuring the BIG-IP system to run commands or scripts upon system startup](https://my.f5.com/manage/s/article/K11948)
-- [K4422: Viewing and modifying the files that are configured for inclusion in a UCS archive](https://my.f5.com/manage/s/article/K4422)
 - ntp_auth(5) man page: format of the ntp.keys file
 
 ## Requirements
