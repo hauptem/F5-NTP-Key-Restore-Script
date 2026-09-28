@@ -2,7 +2,7 @@
 # NTP Key Restore: Restores NTP symmetric keys after TMOS upgrades; see K000139030
 # Version: 1.1
 # Author: Eric Haupt
-# Released under the MIT License.
+# Released under the MIT License. See LICENSE file for details.
 # https://github.com/hauptem/F5-NTP-Key-Restore-Script
 #
 # One key per line inside the single quotes.
